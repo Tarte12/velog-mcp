@@ -1,6 +1,6 @@
 {
   "name": "@emprimula/velog-mcp",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "private": false,
   "description": "A local MCP server for safely reading, indexing, exporting, and publishing Velog posts.",
   "license": "MIT",
