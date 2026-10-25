@@ -31,8 +31,8 @@
     "test": "pnpm run build && node --test --test-isolation=none dist/test/velog-gateway.test.js dist/test/markdown.test.js dist/test/write-tools.test.js dist/test/credentials.test.js dist/test/local-index.test.js"
   },
   "bin": {
-    "velog-mcp": "./dist/src/index.js",
-    "velog-auth": "./dist/src/auth-cli.js"
+    "velog-mcp": "dist/src/index.js",
+    "velog-auth": "dist/src/auth-cli.js"
   },
   "dependencies": {
     "@modelcontextprotocol/server": "^2.0.0",
