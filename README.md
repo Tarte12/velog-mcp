@@ -1,13 +1,13 @@
 # Velog MCP
 
-`@tartelettie_/velog-mcp` is a local stdio MCP server for reading public Velog posts, auditing Markdown, creating drafts or private posts, and maintaining a local keyword index and Markdown export.
+`@emprimula/velog-mcp` is a local stdio MCP server for reading public Velog posts, auditing Markdown, creating drafts or private posts, and maintaining a local keyword index and Markdown export.
 
 ## Install
 
 Node.js 26 is required.
 
 ```powershell
-npm install -g @tartelettie_/velog-mcp
+npm install -g @emprimula/velog-mcp
 velog-auth setup
 ```
 
