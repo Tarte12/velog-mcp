@@ -1,50 +1,50 @@
-# Roadmap: Markdown templates, cross-platform credentials, and follow-up improvements
+# 로드맵: Markdown 템플릿, 멀티플랫폼 인증, 후속 기능
 
-## Goal
+## 목표
 
-Make Velog MCP useful as a writing workspace, not only as a Velog API bridge. The next milestone should make generated posts consistent and attractive while keeping credentials local and platform-appropriate.
+Velog MCP를 단순한 API 연결 도구가 아니라, 글을 작성하고 쌓아 두며 다시 활용하는 로컬 글쓰기 공간으로 발전시킵니다.
 
-## P0 — Generate a consistent Markdown template
+## P0 — 일관된 Markdown 템플릿 생성
 
-- [ ] Extend `velog_format_markdown` to generate a polished Velog article structure, not only report warnings.
-- [ ] Define an explicit input contract for title, summary, sections, code examples, references, and tags.
-- [ ] Produce deterministic Markdown with consistent heading levels, spacing, code-fence languages, links, image alt text, and a `## References` section when sources are supplied.
-- [ ] Keep user-authored prose intact where possible; formatting must not invent technical claims.
-- [ ] Return `formattedBody`, `warnings`, `errors`, and a short preview.
-- [ ] Block publication when secrets, malformed fences, or invalid links remain.
-- [ ] Add contract tests for empty sections, Korean text, nested lists, code fences, links, images, and references.
+- [ ] `velog_format_markdown`을 검사 전용 도구에서 완성된 글 구조 생성 도구로 확장
+- [ ] 제목, 요약, 본문 섹션, 코드 예제, 참고 자료, 태그 입력 규격 정의
+- [ ] 제목 단계, 줄바꿈, 코드 펜스 언어, 링크, 이미지 alt, `## References`를 일관되게 생성
+- [ ] 사용자가 작성한 문장은 가능한 한 보존하고, 기술적 주장을 임의로 만들지 않기
+- [ ] `formattedBody`, `warnings`, `errors`, 미리보기 반환
+- [ ] 시크릿, 닫히지 않은 코드 펜스, 잘못된 링크가 남아 있으면 발행 차단
+- [ ] 한국어, 목록, 코드 펜스, 링크, 이미지, 참고 자료 테스트 추가
 
-### Acceptance criteria
+### 완료 조건
 
-Given the same structured input, the tool returns the same Markdown every time. A user can copy `formattedBody` directly into a private draft and receive a readable, consistently structured Velog post without manually repairing headings or code blocks.
+같은 입력에는 언제나 같은 Markdown이 반환되어야 합니다. 사용자는 결과를 그대로 비공개 초안에 넣어도 제목 구조와 코드 블록을 다시 손볼 필요가 없어야 합니다.
 
-## P1 — Cross-platform credential storage
+## P1 — macOS/Linux 인증 저장소
 
-- [ ] Keep the current Windows DPAPI implementation.
-- [ ] Add macOS Keychain storage through a platform-native or well-maintained keychain backend.
-- [ ] Add Linux Secret Service/libsecret storage with a clear error when no desktop secret service is available.
-- [ ] Keep `setup`, `status`, and `logout` behavior consistent across platforms.
-- [ ] Never read browser cookie databases automatically; users must explicitly provide the Velog token.
-- [ ] Persist rotated `refresh_token` values on every supported platform.
-- [ ] Add platform-specific tests or safe integration checks without printing credential material.
+- [ ] Windows DPAPI 구현 유지
+- [ ] macOS Keychain 지원
+- [ ] Linux Secret Service/libsecret 지원
+- [ ] 세 운영체제에서 `setup`, `status`, `logout` 동작 통일
+- [ ] 브라우저 쿠키 데이터베이스 자동 추출 금지
+- [ ] 갱신된 `refresh_token`을 각 운영체제 저장소에 반영
+- [ ] 토큰을 출력하지 않는 운영체제별 테스트 또는 안전한 통합 점검 추가
 
-### Acceptance criteria
+### 완료 조건
 
-The same published package can be installed on Windows, macOS, and Linux. Credentials are stored in the platform's user-scoped secret store, never in MCP JSON configuration or a plaintext project file.
+같은 npm 패키지를 Windows, macOS, Linux에 설치할 수 있어야 합니다. 인증 정보는 운영체제 사용자 전용 비밀 저장소에만 보관하고, MCP JSON이나 프로젝트의 평문 파일에는 저장하지 않습니다.
 
-## P2 — Useful follow-up features
+## P2 — 후속 기능
 
-- [ ] Add an explicit `velog_get_current_user` tool or setup status that shows the connected username without exposing credentials.
-- [ ] Add sync deletion/archive reporting and a dry-run mode before changing the local index.
-- [ ] Add export front matter customization and an option for a user-selected export directory.
-- [ ] Add post update support with the same preview and confirmation rules as publishing.
-- [ ] Add rate-limit and network timeout feedback without retrying mutations.
-- [ ] Add a release workflow that runs typecheck, build, tests, package dry-run, and publishes only from a tagged commit.
-- [ ] Evaluate semantic search only after keyword search and Markdown snapshots have stable usage evidence.
+- [ ] 연결된 계정의 사용자명을 보여 주는 `velog_get_current_user` 또는 setup 상태 기능
+- [ ] 로컬 인덱스 동기화 전 미리보기와 삭제·보관 대상 보고
+- [ ] Markdown export 경로와 front matter 사용자 설정
+- [ ] 미리보기·확인 절차를 적용한 기존 글 수정 기능
+- [ ] 뮤테이션을 재시도하지 않으면서 네트워크·rate limit 오류 안내 개선
+- [ ] typecheck, build, test, package dry-run을 수행하는 release workflow 추가
+- [ ] 키워드 검색과 Markdown 스냅샷이 안정화된 뒤 semantic search 검토
 
-## Explicit non-goals
+## 명시적 비목표
 
-- Browser cookie scraping or password automation.
-- Public publishing by default.
-- A hosted multi-user token service.
-- Semantic search before reliable local snapshots exist.
+- 브라우저 쿠키 자동 추출이나 Velog 비밀번호 자동 입력
+- 기본 공개 발행
+- 여러 사용자의 토큰을 보관하는 호스팅 서비스
+- 안정적인 로컬 스냅샷 이전의 semantic search
